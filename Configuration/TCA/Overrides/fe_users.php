@@ -1,4 +1,5 @@
 <?php
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 /***************************************************************
  *  Copyright notice
  *
@@ -23,7 +24,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 // Add IP Options to fe_users table
 $tempColumns = array(
@@ -45,12 +46,12 @@ $tempColumns = array(
         ),
     ),
 );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addTCAcolumns(
+ExtensionManagementUtility::addTCAcolumns(
     'fe_users',
     $tempColumns,
     true
 );
-\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::addToAllTCAtypes(
+ExtensionManagementUtility::addToAllTCAtypes(
     'fe_users',
     'tx_aoeipauth_ip;;;;1-1-1',
     '',

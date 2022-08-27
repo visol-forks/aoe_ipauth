@@ -1,73 +1,72 @@
 {
-  "name": "aoe/aoe_ipauth",
-  "description": "Authenticates users based on IP address settings",
-  "type": "typo3-cms-extension",
-  "keywords": ["TYPO3 CMS", "Authentication"],
-  "license": ["GPL-2.0+"],
-  "homepage": "https://github.com/AOEpeople/aoe_ipauth",
-  "support": {
-    "issues": "https://github.com/AOEpeople/aoe_ipauth/issues"
-  },
-  "require": {
-    "typo3/cms-core": "^9.5 || ^10.4 || || ^11.4 || dev-master"
-  },
-  "require-dev": {
-    "nimut/testing-framework": "^5.0",
-    "nimut/typo3-complete": "^9.5"
-  },
-  "authors": [
-    {
-      "name": "Tomas Norre Mikkelsen",
-      "email": "tomas.mikkelsen@aoe.com",
-      "role": "Developer"
-    }
-  ],
-  "autoload": {
-    "psr-4": {
-      "AOE\\AoeIpauth\\": "Classes"
-    }
-  },
-  "autoload-dev": {
-    "psr-4": {
-      "AOE\\AoeIPauth\\Tests\\": "Tests"
-    }
-  },
-  "config": {
-    "vendor-dir": ".Build/vendor",
-    "bin-dir": ".Build/bin"
-  },
-  "scripts": {
-    "post-autoload-dump": [
-      "mkdir -p .Build/Web/typo3conf/ext/",
-      "[ -L .Build/Web/typo3conf/ext/aoe_ipauth ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/aoe_ipauth"
+    "name": "aoe/aoe-ipauth",
+    "description": "Authenticates users based on IP address settings",
+    "type": "typo3-cms-extension",
+    "keywords": ["TYPO3 CMS", "Authentication"],
+    "license": [
+        "GPL-2.0+"
     ],
-    "test:unit": [
-      "[ -e .Build/bin/phpunit ] || composer update",
-      "TYPO3_PATH_WEB=.Build/Web .Build/bin/phpunit --colors -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit"
-    ],
-    "test:functional": [
-      "[ -e .Build/bin/phpunit ] || composer update",
-      "TYPO3_PATH_WEB=$PWD/.Build/Web typo3DatabaseName=aoe_ipauth typo3DatabaseHost=127.0.0.1 typo3DatabaseUsername=root typo3DatabasePassword=root .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml Tests/Functional"
-    ],
-    "test:all": [
-      "@test:unit",
-      "@test:functional"
-    ],
-    "extension-release": [
-      "rm -rf Tests/",
-      "rm .gitignore",
-      "rm .scrutinizer.yml"
-    ]
-  },
-  "extra": {
-    "branch-alias": {
-      "dev-master": "2.0.x-dev"
+    "homepage": "https://github.com/AOEpeople/aoe_ipauth",
+    "require": {
+        "typo3/cms-core": "^9.5 || ^10.4 || || ^11.4 || dev-master"
     },
-    "typo3/cms": {
-      "cms-package-dir": "{$vendor-dir}/typo3/cms",
-      "web-dir": ".Build/Web"
-    }
-  },
-  "minimum-stability": "dev",
-  "prefer-stable": true
+    "require-dev": {
+        "nimut/testing-framework": "^5.0",
+        "nimut/typo3-complete": "^9.5"
+    },
+    "authors": [
+        {
+            "name": "Tomas Norre Mikkelsen",
+            "email": "tomas.mikkelsen@aoe.com",
+            "role": "Developer"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "AOE\\AoeIpauth\\": "Classes"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "AOE\\AoeIPauth\\Tests\\": "Tests"
+        }
+    },
+    "config": {
+        "vendor-dir": ".Build/vendor",
+        "bin-dir": ".Build/bin"
+    },
+    "scripts": {
+        "post-autoload-dump": [
+            "mkdir -p .Build/Web/typo3conf/ext/",
+            "[ -L .Build/Web/typo3conf/ext/aoe_ipauth ] || ln -snvf ../../../../. .Build/Web/typo3conf/ext/aoe_ipauth"
+        ],
+        "test:unit": [
+            "[ -e .Build/bin/phpunit ] || composer update",
+            "TYPO3_PATH_WEB=.Build/Web .Build/bin/phpunit --colors -c .Build/vendor/nimut/testing-framework/res/Configuration/UnitTests.xml Tests/Unit"
+        ],
+        "test:functional": [
+            "[ -e .Build/bin/phpunit ] || composer update",
+            "TYPO3_PATH_WEB=$PWD/.Build/Web typo3DatabaseName=aoe_ipauth typo3DatabaseHost=127.0.0.1 typo3DatabaseUsername=root typo3DatabasePassword=root .Build/bin/phpunit -c .Build/vendor/nimut/testing-framework/res/Configuration/FunctionalTests.xml Tests/Functional"
+        ],
+        "test:all": [
+            "@test:unit",
+            "@test:functional"
+        ],
+        "extension-release": [
+            "rm -rf Tests/",
+            "rm .gitignore",
+            "rm .scrutinizer.yml"
+        ]
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.0.x-dev"
+        },
+        "typo3/cms": {
+            "web-dir": ".Build/Web",
+            "extension-key": "aoe_ipauth"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

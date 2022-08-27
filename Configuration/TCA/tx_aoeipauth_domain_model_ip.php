@@ -1,4 +1,6 @@
 <?php
+use TYPO3\CMS\Core\Utility\PathUtility;
+use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 /***************************************************************
  *  Copyright notice
  *
@@ -23,7 +25,7 @@
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 
-defined('TYPO3_MODE') or die();
+defined('TYPO3') or die();
 
 $GLOBALS['TCA']['tx_aoeipauth_domain_model_ip'] = array(
     'ctrl' => array(
@@ -32,7 +34,6 @@ $GLOBALS['TCA']['tx_aoeipauth_domain_model_ip'] = array(
         'tstamp' => 'tstamp',
         'crdate' => 'crdate',
         'cruser_id' => 'cruser_id',
-        'dividers2tabs' => true,
         'delete' => 'deleted',
         'versioning' => false,
         'versioningWS' => false,
@@ -41,12 +42,12 @@ $GLOBALS['TCA']['tx_aoeipauth_domain_model_ip'] = array(
             'starttime' => 'starttime',
             'endtime' => 'endtime',
         ),
-        \TYPO3\CMS\Core\Utility\PathUtility::stripPathSitePrefix(\TYPO3\CMS\Core\Utility\ExtensionManagementUtility::extPath('aoe_ipauth')) . 'Resources/Public/Icons/tx_aoeipauth_domain_model_ip.png'
+        PathUtility::stripPathSitePrefix(ExtensionManagementUtility::extPath('aoe_ipauth')) . 'Resources/Public/Icons/tx_aoeipauth_domain_model_ip.png'
     ),
     'interface' => array(
     ),
     'types' => array(
-        '1' => array('showitem' => 'hidden;;1, ip, description'),
+        '1' => array('showitem' => 'hidden,--palette--;;1,ip,description'),
     ),
     'palettes' => array(
         '1' => array('showitem' => ''),
@@ -61,7 +62,7 @@ $GLOBALS['TCA']['tx_aoeipauth_domain_model_ip'] = array(
         ),
         'starttime' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.starttime',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.starttime',
             'config' => array(
                 'type' => 'input',
                 'size' => 13,
@@ -76,7 +77,7 @@ $GLOBALS['TCA']['tx_aoeipauth_domain_model_ip'] = array(
         ),
         'endtime' => array(
             'exclude' => 1,
-            'label' => 'LLL:EXT:lang/locallang_general.xml:LGL.endtime',
+            'label' => 'LLL:EXT:core/Resources/Private/Language/locallang_general.xlf:LGL.endtime',
             'config' => array(
                 'type' => 'input',
                 'size' => 13,
