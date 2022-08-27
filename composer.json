@@ -1,5 +1,5 @@
 {
-    "name": "aoe/aoe-ipauth",
+    "name": "aoe/aoe_ipauth",
     "description": "Authenticates users based on IP address settings",
     "type": "typo3-cms-extension",
     "keywords": ["TYPO3 CMS", "Authentication"],
