@@ -76,7 +76,7 @@ class ContentService implements SingletonInterface
                 $queryBuilder->expr()->eq('uid', (int)$uid . ' ' . EnableFieldsUtility::enableFields(self::CONTENT_TABLE))
             )
             ->execute()
-            ->fetchAll();
+            ->fetchAllAssociative();
 
         $isPageCustomized = (count($pages) > 0);
         return $isPageCustomized;
@@ -105,7 +105,7 @@ class ContentService implements SingletonInterface
                 $queryBuilder->expr()->eq('pid', (int)$uid . ' ' . EnableFieldsUtility::enableFields(self::CONTENT_TABLE))
             )
             ->execute()
-            ->fetchAll();
+            ->fetchAllAssociative();
 
 
         return $ttContent;

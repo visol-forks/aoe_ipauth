@@ -28,10 +28,8 @@ use TYPO3\CMS\Core\Messaging\AbstractMessage;
 use AOE\AoeIpauth\Service\IpMatchingService;
 use TYPO3\CMS\Core\DataHandling\DataHandler;
 use TYPO3\CMS\Core\Messaging\FlashMessage;
-use TYPO3\CMS\Core\Messaging\FlashMessageQueue;
 use TYPO3\CMS\Core\Messaging\FlashMessageService;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 
 /**
  * Class Tcemain
@@ -42,11 +40,6 @@ class Tcemain
 {
 
     const IP_TABLE = 'tx_aoeipauth_domain_model_ip';
-
-    /**
-     * @var ObjectManager
-     */
-    protected $objectManager;
 
     /**
      * Post process
@@ -60,15 +53,12 @@ class Tcemain
      */
     public function processDatamap_postProcessFieldArray($status, $table, $id, &$fieldArray, &$pObj)
     {
-        /** @var ObjectManager $this->objectManager */
-        $this->objectManager = GeneralUtility::makeInstance(ObjectManager::class);
-
         if (self::IP_TABLE != $table || empty($fieldArray) || !isset($fieldArray['ip'])) {
             return;
         }
 
         /** @var IpMatchingService $ipMatchingService */
-        $ipMatchingService = $this->objectManager->get(IpMatchingService::class);
+        $ipMatchingService = GeneralUtility::makeInstance(IpMatchingService::class);
 
         $potentialIp = $fieldArray['ip'];
 
@@ -127,7 +117,7 @@ class Tcemain
             true
         );
 
-        $flashMessageService = $this->objectManager->get(FlashMessageService::class);
+        $flashMessageService = GeneralUtility::makeInstance(FlashMessageService::class);
         $messageQueue = $flashMessageService->getMessageQueueByIdentifier();
         $messageQueue->addMessage($flashMessage);
     }

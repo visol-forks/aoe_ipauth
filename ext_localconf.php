@@ -1,9 +1,11 @@
 <?php
 
+use AOE\AoeIpauth\Typo3\Service\Authentication;
 use TYPO3\CMS\Core\Utility\GeneralUtility;
 use TYPO3\CMS\Core\Configuration\ExtensionConfiguration;
 use TYPO3\CMS\Core\Utility\ExtensionManagementUtility;
 use AOE\AoeIpauth\Hooks\Tcemain;
+
 if (!defined('TYPO3')) {
     die('Access denied.');
 }
@@ -27,8 +29,10 @@ $GLOBALS['TYPO3_CONF_VARS']['SVCONF']['auth']['setup']['FE_fetchUserIfNoSession'
 unset($extensionConfiguration);
 
 // IP Authentication Service
-ExtensionManagementUtility::addService('aoe_ipauth', 'auth', 'tx_aoeipauth_typo3_service_authentication',
-    array(
+ExtensionManagementUtility::addService('aoe_ipauth',
+    'auth',
+    'AOE\AoeIpauth\Typo3\Service\Authentication',
+    [
         'title' => 'IP Authentication',
         'description' => 'Authenticates against IP addresses and ranges.',
         'subtype' => 'authUserFE,getUserFE,getGroupsFE',
@@ -38,7 +42,6 @@ ExtensionManagementUtility::addService('aoe_ipauth', 'auth', 'tx_aoeipauth_typo3
         'quality' => 50,
         'os' => '',
         'exec' => '',
-        'classFile' => ExtensionManagementUtility::extPath('aoe_ipauth') . 'Classes/Typo3/Service/Authentication.php',
-        'className' => 'AOE\AoeIpauth\Typo3\Service\Authentication',
-    )
+        'className' => Authentication::class,
+    ]
 );

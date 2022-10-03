@@ -25,7 +25,6 @@ namespace AOE\AoeIpauth\Report;
  *  This copyright notice MUST APPEAR in all copies of the script!
  ***************************************************************/
 use TYPO3\CMS\Reports\StatusProviderInterface;
-use TYPO3\CMS\Extbase\Object\ObjectManager;
 use AOE\AoeIpauth\Domain\Service\FeEntityService;
 use TYPO3\CMS\Reports\Status;
 use TYPO3\CMS\Backend\Utility\BackendUtility;
@@ -40,11 +39,6 @@ class IpUserAuthenticationStatus implements StatusProviderInterface
 {
 
     /**
-     * @var ObjectManager
-     */
-    protected $objectManager;
-
-    /**
      * @var string
      */
     protected $myIp;
@@ -56,10 +50,6 @@ class IpUserAuthenticationStatus implements StatusProviderInterface
     public function getStatus()
     {
         $reports = array();
-
-        // create object manager
-        $objectManager = GeneralUtility::makeInstance('TYPO3\\CMS\\Extbase\\Object\\ObjectManager');
-        $this->objectManager = clone $objectManager;
 
         $this->myIp = GeneralUtility::getIndpEnv('REMOTE_ADDR');
 
@@ -77,13 +67,13 @@ class IpUserAuthenticationStatus implements StatusProviderInterface
     protected function analyseUses(&$reports)
     {
         /** @var FeEntityService $service */
-        $service = $this->objectManager->get('AOE\\AoeIpauth\\Domain\\Service\\FeEntityService');
+        $service = GeneralUtility::makeInstance(FeEntityService::class);
 
         $users = $service->findAllUsersWithIpAuthentication();
 
         if (empty($users)) {
             // Message that no user group has IP authentication
-            $reports[] = $this->objectManager->get(
+            $reports[] = GeneralUtility::makeInstance(
                 'TYPO3\\CMS\\Reports\\Status',
                 'IP User Authentication',
                 'No users with IP authentication found',
@@ -118,7 +108,7 @@ class IpUserAuthenticationStatus implements StatusProviderInterface
 
             $userInfo .= '<br /><br />Your current IP is: <strong>' . $this->myIp . '</strong>';
 
-            $reports[] = $this->objectManager->get('TYPO3\\CMS\\Reports\\Status',
+            $reports[] = GeneralUtility::makeInstance('TYPO3\\CMS\\Reports\\Status',
                 'IP User Authentication',
                 'Some users with automatic IP authentication were found.',
                 $userInfo,
